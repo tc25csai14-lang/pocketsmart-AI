@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PocketSmartAI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>PocketSmartAI</h1>
+
+        <form method="POST" onsubmit="showLoading()">
+            <input type="text" name="question" placeholder="Ask something..." required autofocus>
+            <button type="submit" id="askBtn">Ask</button>
+        </form>
+
+        <p id="loading" style="display:none; color:#4a3aff;">Yosichitu irukken... ⏳</p>
+
+        {% for item in history|reverse %}
+            <div class="bubble user">{{ item.q }}</div>
+            <div class="bubble ai">{{ item.a|safe }}</div>
+        {% endfor %}
+
+        {% if history %}
+            <p style="text-align:center;"><a href="/clear">Chat clear pannu</a></p>
+        {% endif %}
+    </div>
+
+    <script>
+        function showLoading() {
+            document.getElementById("loading").style.display = "block";
+            document.getElementById("askBtn").disabled = true;
+        }
+    </script>
+</body>
+</html>
